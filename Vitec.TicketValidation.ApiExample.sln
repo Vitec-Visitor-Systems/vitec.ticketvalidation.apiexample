@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vitec.TicketValidation.ApiExample.Host", "src\Vitec.TicketValidation.ApiExample.Host\Vitec.TicketValidation.ApiExample.Host.csproj", "{DCE33F4E-D001-4E87-A989-748E1E86BC51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{77DDAEC3-8D77-4F3A-84B2-4149E809656A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
