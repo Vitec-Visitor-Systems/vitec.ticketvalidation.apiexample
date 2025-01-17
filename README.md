@@ -21,10 +21,11 @@ The API must support at least one of the following authentication methods:
 ## Endpoints
 
 ### Validate Ticket
-Validates a ticket against the system.
+Validates a ticket against the system.   
+The API must expose a POST endpoint for ticket validation. The actual URL path can be configured as needed - implementers should provide the complete URL as part of their integration information.   
 
 ```
-POST /api/tickets/validate
+POST [configured-endpoint-path] for example: /api/tickets/validate
 ```
 
 #### Request Model (ValidateTicketRequest)
@@ -32,14 +33,14 @@ POST /api/tickets/validate
 ```csharp
 public class ValidateTicketRequest
 {
-    public string TicketId { get; set; }    // Hexadecimal string
+    public string TicketId { get; set; }    // Required, non-null ticket identifier
     public int ReaderId { get; set; }       // Numeric identifier for the ticket reader
 }
 ```
 
 | Field | Type | Description |
 |-------|------|-------------|
-| TicketId | string | A hexadecimal string identifying the ticket. Must contain only characters 0-9 and A-F (case-insensitive). |
+| TicketId | string | Non-null string identifying the ticket. |
 | ReaderId | integer | Identifier for the reader/terminal attempting to validate the ticket. |
 
 #### Response Model (ValidateTicketResponse)
@@ -48,7 +49,7 @@ public class ValidateTicketRequest
 public class ValidateTicketResponse
 {
     public ValidationStatus Status { get; set; }
-    public string ErrorMessage { get; set; }
+    public string EndUserMessage { get; set; }
     public DateTime? ValidUntil { get; set; }
     public TicketHolder TicketHolder { get; set; }
 }
@@ -57,7 +58,7 @@ public class ValidateTicketResponse
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
 | Status | ValidationStatus | The status of the ticket validation (see ValidationStatus enum) | Yes |
-| ErrorMessage | string | Description of the error if the status is not Valid. Should be null for valid tickets. | Yes if not valid |
+| EndUserMessage | string | A user-friendly message that can be displayed to the end user. For valid tickets, this can include additional information (e.g., remaining uses). For invalid tickets, this should provide a clear explanation. | Yes |
 | ValidUntil | DateTime? | The expiration date/time of the ticket in UTC. | No |
 | TicketHolder | TicketHolder | Information about the ticket holder. | No |
 
@@ -105,8 +106,8 @@ public class TicketHolder
 ```json
 {
     "status": "Valid",
-    "errorMessage": null,
-    "validUntil": "2024-02-15T23:59:59Z",
+    "endUserMessage": "Welcome! You have 3 clips remaining on your ticket.",
+    "validUntil": "2025-02-15T23:59:59Z",
     "ticketHolder": {
         "firstname": "John",
         "lastname": "Doe"
@@ -118,8 +119,8 @@ public class TicketHolder
 ```json
 {
     "status": "Expired",
-    "errorMessage": "Ticket expired on 2024-01-01T00:00:00Z",
-    "validUntil": "2024-01-01T00:00:00Z",
+    "endUserMessage": "Your ticket expired on January 1st, 2025. Please purchase a new ticket.",
+    "validUntil": "2025-01-01T00:00:00Z",
     "ticketHolder": null
 }
 ```
@@ -128,7 +129,7 @@ public class TicketHolder
 ```json
 {
     "status": "InvalidReader",
-    "errorMessage": "Reader not authorized for this ticket",
+    "endUserMessage": "This ticket cannot be used at this location.",
     "validUntil": null,
     "ticketHolder": null
 }

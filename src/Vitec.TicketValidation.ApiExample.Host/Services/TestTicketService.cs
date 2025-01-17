@@ -6,152 +6,188 @@ public class TestTicketService
 {
     private readonly Dictionary<string, TestTicket> _tickets = new()
     {
-        // Valid tickets
-        {
-            "0000AAAA", new TestTicket
+            // Valid tickets
             {
-                TicketId = "0000AAAA",
-                ValidReaderIds = new[] { 1, 2 },
-                Status = ValidationStatus.Valid,
-                ValidUntil = DateTime.UtcNow.AddDays(30),
-                TicketHolder = new TicketHolder { Firstname = "John", Lastname = "Doe" }
-            }
-        },
-        {
-            "0000AAAB", new TestTicket
+                "TICKET-001", new TestTicket
+                {
+                    TicketId = "TICKET-001",
+                    ValidReaderIds = new[] { 1, 2 },
+                    Status = ValidationStatus.Valid,
+                    EndUserMessage = "Welcome! You have 3 clips remaining on your multi-journey ticket.",
+                    ValidUntil = DateTime.UtcNow.AddDays(30),
+                    TicketHolder = new TicketHolder { Firstname = "John", Lastname = "Doe" }
+                }
+            },
             {
-                TicketId = "0000AAAB",
-                ValidReaderIds = new[] { 1 },
-                Status = ValidationStatus.Valid,
-                ValidUntil = DateTime.UtcNow.AddDays(60),
-                TicketHolder = new TicketHolder { Firstname = "Jane", Lastname = "Smith" }
-            }
-        },
-        {
-            "0000AAAC", new TestTicket
+                "TICKET-002", new TestTicket
+                {
+                    TicketId = "TICKET-002",
+                    ValidReaderIds = new[] { 1 },
+                    Status = ValidationStatus.Valid,
+                    EndUserMessage = "Welcome! Your season ticket is valid until February 15th, 2024.",
+                    ValidUntil = DateTime.UtcNow.AddDays(60),
+                    TicketHolder = new TicketHolder { Firstname = "Jane", Lastname = "Smith" }
+                }
+            },
             {
-                TicketId = "0000AAAC",
-                ValidReaderIds = new[] { 1, 2, 3 },
-                Status = ValidationStatus.Valid,
-                ValidUntil = null,  // Unlimited validity
-                TicketHolder = new TicketHolder { Firstname = "Bob", Lastname = "Johnson" }
-            }
-        },
-        {
-            "0000AAAD", new TestTicket
+                "TICKET-003", new TestTicket
+                {
+                    TicketId = "TICKET-003",
+                    ValidReaderIds = new[] { 1, 2, 3 },
+                    Status = ValidationStatus.Valid,
+                    EndUserMessage = "Welcome! Your lifetime pass is valid for all stations.",
+                    ValidUntil = null,
+                    TicketHolder = new TicketHolder { Firstname = "Bob", Lastname = "Johnson" }
+                }
+            },
             {
-                TicketId = "0000AAAD",
-                ValidReaderIds = new[] { 2 },
-                Status = ValidationStatus.Valid,
-                ValidUntil = DateTime.UtcNow.AddDays(15),
-                TicketHolder = null  // Anonymous ticket
-            }
-        },
-        // Expired tickets
-        {
-            "0000BBBA", new TestTicket
+                "TICKET-004", new TestTicket
+                {
+                    TicketId = "TICKET-004",
+                    ValidReaderIds = new[] { 2 },
+                    Status = ValidationStatus.Valid,
+                    EndUserMessage = "Welcome! Single journey ticket validated successfully.",
+                    ValidUntil = DateTime.UtcNow.AddHours(2),
+                    TicketHolder = null
+                }
+            },
+            // Expired tickets
             {
-                TicketId = "0000BBBA",
-                ValidReaderIds = new[] { 1 },
-                Status = ValidationStatus.Expired,
-                ValidUntil = DateTime.UtcNow.AddDays(-1),
-                TicketHolder = new TicketHolder { Firstname = "Alice", Lastname = "Brown" }
-            }
-        },
-        {
-            "0000BBBB", new TestTicket
+                "TICKET-101", new TestTicket
+                {
+                    TicketId = "TICKET-101",
+                    ValidReaderIds = new[] { 1 },
+                    Status = ValidationStatus.Expired,
+                    EndUserMessage = "Your season ticket expired yesterday. Please renew your ticket at the ticket office or online.",
+                    ValidUntil = DateTime.UtcNow.AddDays(-1),
+                    TicketHolder = new TicketHolder { Firstname = "Alice", Lastname = "Brown" }
+                }
+            },
             {
-                TicketId = "0000BBBB",
-                ValidReaderIds = new[] { 1, 2 },
-                Status = ValidationStatus.Expired,
-                ValidUntil = DateTime.UtcNow.AddDays(-30),
-                TicketHolder = null
-            }
-        },
-        {
-            "0000BBBC", new TestTicket
+                "TICKET-102", new TestTicket
+                {
+                    TicketId = "TICKET-102",
+                    ValidReaderIds = new[] { 1, 2 },
+                    Status = ValidationStatus.Expired,
+                    EndUserMessage = "Your multi-journey ticket has expired. Please purchase a new ticket.",
+                    ValidUntil = DateTime.UtcNow.AddDays(-30),
+                    TicketHolder = null
+                }
+            },
             {
-                TicketId = "0000BBBC",
-                ValidReaderIds = new[] { 3 },
-                Status = ValidationStatus.Expired,
-                ValidUntil = DateTime.UtcNow.AddDays(-5),
-                TicketHolder = new TicketHolder { Firstname = "Charlie", Lastname = "Wilson" }
-            }
-        },
-        // Blocked tickets
-        {
-            "0000CCCA", new TestTicket
+                "TICKET-103", new TestTicket
+                {
+                    TicketId = "TICKET-103",
+                    ValidReaderIds = new[] { 3 },
+                    Status = ValidationStatus.Expired,
+                    EndUserMessage = "Your single journey ticket has expired. Maximum journey time is 2 hours.",
+                    ValidUntil = DateTime.UtcNow.AddHours(-1),
+                    TicketHolder = new TicketHolder { Firstname = "Charlie", Lastname = "Wilson" }
+                }
+            },
+            // Blocked tickets
             {
-                TicketId = "0000CCCA",
-                ValidReaderIds = new[] { 1, 2, 3 },
-                Status = ValidationStatus.Blocked,
-                ValidUntil = DateTime.UtcNow.AddDays(45),
-                TicketHolder = new TicketHolder { Firstname = "David", Lastname = "Lee" }
-            }
-        },
-        {
-            "0000CCCB", new TestTicket
+                "TICKET-201", new TestTicket
+                {
+                    TicketId = "TICKET-201",
+                    ValidReaderIds = new[] { 1, 2, 3 },
+                    Status = ValidationStatus.Blocked,
+                    EndUserMessage = "This ticket has been blocked due to reported loss. Please contact customer service.",
+                    ValidUntil = DateTime.UtcNow.AddDays(45),
+                    TicketHolder = new TicketHolder { Firstname = "David", Lastname = "Lee" }
+                }
+            },
             {
-                TicketId = "0000CCCB",
-                ValidReaderIds = new[] { 2 },
-                Status = ValidationStatus.Blocked,
-                ValidUntil = null,
-                TicketHolder = null
-            }
-        },
-        {
-            "0000CCCC", new TestTicket
+                "TICKET-202", new TestTicket
+                {
+                    TicketId = "TICKET-202",
+                    ValidReaderIds = new[] { 2 },
+                    Status = ValidationStatus.Blocked,
+                    EndUserMessage = "This ticket has been blocked. Please contact customer service for more information.",
+                    ValidUntil = null,
+                    TicketHolder = null
+                }
+            },
             {
-                TicketId = "0000CCCC",
-                ValidReaderIds = new[] { 1 },
-                Status = ValidationStatus.Blocked,
-                ValidUntil = DateTime.UtcNow.AddDays(10),
-                TicketHolder = new TicketHolder { Firstname = "Emma", Lastname = "Davis" }
-            }
-        },
-        // Unknown tickets
-        {
-            "0000DDDA", new TestTicket
+                "TICKET-203", new TestTicket
+                {
+                    TicketId = "TICKET-203",
+                    ValidReaderIds = new[] { 1 },
+                    Status = ValidationStatus.Blocked,
+                    EndUserMessage = "This ticket has been blocked due to suspicious activity. Please visit the ticket office.",
+                    ValidUntil = DateTime.UtcNow.AddDays(10),
+                    TicketHolder = new TicketHolder { Firstname = "Emma", Lastname = "Davis" }
+                }
+            },
+            // Unknown tickets
             {
-                TicketId = "0000DDDA",
-                ValidReaderIds = new[] { 1, 2 },
-                Status = ValidationStatus.Unknown,
-                ValidUntil = null,
-                TicketHolder = null
-            }
-        },
-        {
-            "0000DDDB", new TestTicket
+                "TICKET-301", new TestTicket
+                {
+                    TicketId = "TICKET-301",
+                    ValidReaderIds = new[] { 1, 2 },
+                    Status = ValidationStatus.Unknown,
+                    EndUserMessage = "This ticket number is not recognized. Please check the ticket number or contact customer service.",
+                    ValidUntil = null,
+                    TicketHolder = null
+                }
+            },
             {
-                TicketId = "0000DDDB",
-                ValidReaderIds = new[] { 3 },
-                Status = ValidationStatus.Unknown,
-                ValidUntil = DateTime.UtcNow.AddDays(20),
-                TicketHolder = new TicketHolder { Firstname = "Frank", Lastname = "Miller" }
-            }
-        },
-        // Error tickets
-        {
-            "0000EEEA", new TestTicket
+                "TICKET-302", new TestTicket
+                {
+                    TicketId = "TICKET-302",
+                    ValidReaderIds = new[] { 3 },
+                    Status = ValidationStatus.Unknown,
+                    EndUserMessage = "Unable to validate ticket. Please try again or seek assistance from station staff.",
+                    ValidUntil = null,
+                    TicketHolder = new TicketHolder { Firstname = "Frank", Lastname = "Miller" }
+                }
+            },
+            // Error tickets
             {
-                TicketId = "0000EEEA",
-                ValidReaderIds = new[] { 1 },
-                Status = ValidationStatus.Error,
-                ValidUntil = null,
-                TicketHolder = null
-            }
-        },
-        {
-            "0000EEEB", new TestTicket
+                "TICKET-401", new TestTicket
+                {
+                    TicketId = "TICKET-401",
+                    ValidReaderIds = new[] { 1 },
+                    Status = ValidationStatus.Error,
+                    EndUserMessage = "A system error occurred while validating your ticket. Please try again.",
+                    ValidUntil = null,
+                    TicketHolder = null
+                }
+            },
             {
-                TicketId = "0000EEEB",
-                ValidReaderIds = new[] { 2, 3 },
-                Status = ValidationStatus.Error,
-                ValidUntil = DateTime.UtcNow.AddDays(5),
-                TicketHolder = new TicketHolder { Firstname = "Grace", Lastname = "Taylor" }
+                "TICKET-402", new TestTicket
+                {
+                    TicketId = "TICKET-402",
+                    ValidReaderIds = new[] { 2, 3 },
+                    Status = ValidationStatus.Error,
+                    EndUserMessage = "Unable to process ticket validation at this time. Please try again later.",
+                    ValidUntil = DateTime.UtcNow.AddDays(5),
+                    TicketHolder = new TicketHolder { Firstname = "Grace", Lastname = "Taylor" }
+                }
+            },
+            {
+                "TICKET-501", new TestTicket
+                {
+                    TicketId = "TICKET-501",
+                    ValidReaderIds = new[] { 1, 2, 3 },
+                    Status = ValidationStatus.Valid,
+                    EndUserMessage = "Welcome! You have 1 clip remaining on your ticket.",
+                    ValidUntil = DateTime.UtcNow.AddDays(15),
+                    TicketHolder = new TicketHolder { Firstname = "Henry", Lastname = "Wilson" }
+                }
+            },
+            {
+                "TICKET-502", new TestTicket
+                {
+                    TicketId = "TICKET-502",
+                    ValidReaderIds = new[] { 1 },
+                    Status = ValidationStatus.Valid,
+                    EndUserMessage = "Welcome! Your group ticket is valid for 5 people.",
+                    ValidUntil = DateTime.UtcNow.AddHours(4),
+                    TicketHolder = new TicketHolder { Firstname = "Isabella", Lastname = "Moore" }
+                }
             }
-        }
-    };
+        };
 
     public ValidateTicketResponse ValidateTicket(string ticketId, int readerId)
     {
@@ -160,7 +196,7 @@ public class TestTicketService
             return new ValidateTicketResponse
             {
                 Status = ValidationStatus.Unknown,
-                ErrorMessage = "Ticket not found"
+                EndUserMessage = "Ticket not found. Please check your ticket number."
             };
         }
 
@@ -169,14 +205,14 @@ public class TestTicketService
             return new ValidateTicketResponse
             {
                 Status = ValidationStatus.InvalidReader,
-                ErrorMessage = "Reader not authorized for this ticket"
+                EndUserMessage = "This ticket cannot be used at this location."
             };
         }
 
         return new ValidateTicketResponse
         {
             Status = ticket.Status,
-            ErrorMessage = ticket.Status != ValidationStatus.Valid ? "Ticket is not valid" : null,
+            EndUserMessage = ticket.EndUserMessage,
             ValidUntil = ticket.ValidUntil,
             TicketHolder = ticket.TicketHolder
         };
@@ -188,6 +224,7 @@ public class TestTicket
 {
     public string TicketId { get; set; }
     public int[] ValidReaderIds { get; set; }
+    public string EndUserMessage { get; set; }
     public ValidationStatus Status { get; set; }
     public DateTime? ValidUntil { get; set; }
     public TicketHolder? TicketHolder { get; set; }
