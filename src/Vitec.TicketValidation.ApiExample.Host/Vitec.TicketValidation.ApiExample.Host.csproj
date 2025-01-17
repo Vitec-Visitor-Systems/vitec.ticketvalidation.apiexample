@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Owners>Vitec Visitor Systems</Owners>
+		<Authors>Vitec Visitor Systems</Authors>
+		<Description>Vitec Visitor Systems Ticket Validation Api Example</Description>
+		<ServerGarbageCollection>true</ServerGarbageCollection>
+		<GarbageCollectionAdaptationMode>1</GarbageCollectionAdaptationMode>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.12" />
+		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.3.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Vitec.TicketValidation.ExternalContract\Vitec.TicketValidation.ExternalContract.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="TestData\" />
+	</ItemGroup>
+
+</Project>

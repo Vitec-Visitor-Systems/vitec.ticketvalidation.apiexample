@@ -1,0 +1,6 @@
+@Vitec.TicketValidation.ApiExample.Host_HostAddress = http://localhost:5091
+
+GET {{Vitec.TicketValidation.ApiExample.Host_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
