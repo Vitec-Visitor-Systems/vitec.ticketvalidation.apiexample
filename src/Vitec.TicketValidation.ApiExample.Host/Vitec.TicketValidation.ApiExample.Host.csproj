@@ -8,6 +8,10 @@
 		<Description>Vitec Visitor Systems Ticket Validation Api Example</Description>
 		<ServerGarbageCollection>true</ServerGarbageCollection>
 		<GarbageCollectionAdaptationMode>1</GarbageCollectionAdaptationMode>
+		<Version>$(SemVer)</Version>
+		<ContainerRegistry>nexus.entryevent.se:8085</ContainerRegistry>
+		<ContainerRepository>vitec.webpos.integrations.exvalidator</ContainerRepository>
+		<ContainerImageTag>$(SemVer)</ContainerImageTag>
 	</PropertyGroup>
 
 	<ItemGroup>
