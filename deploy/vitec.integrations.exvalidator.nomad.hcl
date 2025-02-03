@@ -35,11 +35,11 @@ job "vitec-integrations-external-validator" {
         memory = 128
       }
       config {
-        image = "nexus.entryevent.se:8085/vitec.webpos.integrations.exvalidator:2025.1.1"
+        image = "nexus.entryevent.se:8085/vitec.integrations.exvalidator:2025.1.1"
         ports = ["http"]
         auth {
-          username = "deploy"
-          password = "read-only"
+          username = "XXXXX"
+          password = "XXXXXX"
         }
       }
     }
