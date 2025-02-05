@@ -186,6 +186,17 @@ public class TestTicketService
                     ValidUntil = DateTime.UtcNow.AddHours(4),
                     TicketHolder = new TicketHolder { Firstname = "Isabella", Lastname = "Moore" }
                 }
+            },
+            {
+                @"{""SessionGUID"" : ""5439205F-E371-4846-A0EA-DE6765AE3A67"",""UserGUID"" : ""0FC62242-6BCD-4672-8056-8D1A7459D453""}", new TestTicket
+                {
+                    TicketId = @"{""SessionGUID"" : ""5439205F-E371-4846-A0EA-DE6765AE3A67"",""UserGUID"" : ""0FC62242-6BCD-4672-8056-8D1A7459D453""}",
+                    ValidReaderIds = new[] { 1, 2, 9 },
+                    Status = ValidationStatus.Valid,
+                    EndUserMessage = "Välkommen in! Din biljett är giltig! :).",
+                    ValidUntil = DateTime.UtcNow.AddDays(30),
+                    TicketHolder = new TicketHolder { Firstname = "John", Lastname = "Doe" }
+                }
             }
         };
 
