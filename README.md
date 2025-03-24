@@ -142,7 +142,6 @@ public class TicketHolder
    - Must return 401 Unauthorized for invalid credentials
 
 2. **Input Validation**
-   - Must validate TicketId is a valid hexadecimal string
    - Must validate ReaderId is a positive integer
    - Must return 400 Bad Request for invalid input
 
